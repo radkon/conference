@@ -17,14 +17,11 @@
 
         <p:dataTable id="speakers" var="speaker" value="#{speakerBean.speakers}">
             <f:facet name="header">Speakers</f:facet>
-            <p:column sortBy="#{speaker.id}" headerText="Id">
-                <h:outputText value="#{speaker.id}"/>
-            </p:column>
             <p:column sortBy="name" headerText="Name">
                 <h:outputText value="#{speaker.name}"/>
             </p:column>
-            <p:column sortBy="email" headerText="E-Mail">
-                <h:outputText value="#{speaker.email}"/>
+            <p:column sortBy="description" headerText="Description">
+                <h:outputText value="#{speaker.description}"/>
             </p:column>
         </p:dataTable>
 
@@ -38,8 +35,8 @@
                 <h:outputLabel for="name" value="Name: "/>
                 <p:inputText id="name" value="#{speakerBean.speaker.name}" label="Name"/>
 
-                <h:outputLabel for="email" value="E-Mail: "/>
-                <p:inputText id="email" value="#{speakerBean.speaker.email}" label="Email"/>
+                <h:outputLabel for="description" value="Description: "/>
+                <p:inputText id="description" value="#{speakerBean.speaker.description}" label="Email"/>
 
             </h:panelGrid>
 
