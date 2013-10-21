@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Facelet Title</title>
+</h:head>
+<h:body>
+    Hello from Facelets
+    <br/>
+    <h:link outcome="welcomePrimefaces" value="Primefaces welcome page"/>
+    <br/>
+    <h:form>
+
+        <p:dataTable id="speakers" var="speaker" value="#{speakerBean.speakers}">
+            <f:facet name="header">Speakers</f:facet>
+            <p:column sortBy="#{speaker.id}" headerText="Id">
+                <h:outputText value="#{speaker.id}"/>
+            </p:column>
+            <p:column sortBy="name" headerText="Name">
+                <h:outputText value="#{speaker.name}"/>
+            </p:column>
+            <p:column sortBy="email" headerText="E-Mail">
+                <h:outputText value="#{speaker.email}"/>
+            </p:column>
+        </p:dataTable>
+
+        <p:commandButton value="Add speaker" onclick="PF('speakerCreateDialog').show();"/>
+
+        <p:dialog header="Add speaker" widgetVar="speakerCreateDialog" resizable="false"
+                  showEffect="clip" hideEffect="fold" id="dialog">
+
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <h:outputLabel for="name" value="Name: "/>
+                <p:inputText id="name" value="#{speakerBean.speaker.name}" label="Name"/>
+
+                <h:outputLabel for="email" value="E-Mail: "/>
+                <p:inputText id="email" value="#{speakerBean.speaker.email}" label="Email"/>
+
+            </h:panelGrid>
+
+            <p:commandButton value="Add" actionListener="#{speakerBean.saveSpeaker()}" ajax="false"/>
+        </p:dialog>
+    </h:form>
+</h:body>
+</html>
+
