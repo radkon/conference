@@ -1,24 +1,23 @@
 package com.prodyna.pac.conference.datamodel;
 
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import java.util.Objects;
 
 /**
- *
  * @author Markus Konrad <markus.konrad@prodyna.com>
  */
 @Entity
 @Table(name = "Speaker")
 @NamedQueries({
-    @NamedQuery(name = "Speaker.findAll", query = "select s from Speaker s")})
+        @NamedQuery(name = "Speaker.findAll", query = "select s from Speaker s")})
 public class Speaker extends EntityBase {
 
     private static final long serialVersionUID = 1L;
     private String name;
-    private String email;
+    private String description;
 
     public String getName() {
         return name;
@@ -28,17 +27,12 @@ public class Speaker extends EntityBase {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getUuid());
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -55,6 +49,7 @@ public class Speaker extends EntityBase {
 
     @Override
     public String toString() {
-        return "Speaker[ id=" + getId() + " ]";
+        return "Speaker[ id=" + getId() + ", name=" + getName() + ", description=" + getDescription() + " ]";
     }
+
 }

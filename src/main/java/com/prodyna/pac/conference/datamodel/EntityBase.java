@@ -2,6 +2,7 @@ package com.prodyna.pac.conference.datamodel;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -10,9 +11,17 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class EntityBase implements Serializable {
 
+    private static final long serialVersionUID = -7225110533478088113L;
     private Long id;
     private UUID uuid;
     private Long version;
+
+    @PrePersist
+    private void ensureUuidIsSet() {
+        if (getUuid() == null) {
+            setUuid(UUID.randomUUID());
+        }
+    }
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -42,11 +51,9 @@ public abstract class EntityBase implements Serializable {
         this.version = version;
     }
 
-    @PrePersist
-    private void prePersist() {
-        if (getUuid() == null) {
-            setUuid(UUID.randomUUID());
-        }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getUuid());
     }
 
 }
