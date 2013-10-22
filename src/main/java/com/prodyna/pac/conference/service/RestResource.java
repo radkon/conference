@@ -3,6 +3,7 @@ package com.prodyna.pac.conference.service;
 import com.prodyna.pac.conference.datamodel.EntityBase;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -17,45 +18,51 @@ import java.util.List;
  */
 public abstract class RestResource<T extends EntityBase> {
 
+    @PersistenceContext(unitName = "ConferencePU")
+    private EntityManager entityManager;
+
     private Class<T> entityClass;
 
     protected RestResource(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
-    protected abstract EntityManager getEntityManager();
-
-    protected void save(T entity) {
-        getEntityManager().merge(entity);
+    public long create(T entity) {
+        entityManager.persist(entity);
+        return entity.getId();
     }
 
-    protected T findById(Long id) {
-        return getEntityManager().find(entityClass, id);
+    public T update(T entity) {
+        return entityManager.merge(entity);
     }
 
-    protected void remove(Long id) {
-        T entity = findById(id);
+    public T read(long id) {
+        return entityManager.find(entityClass, id);
+    }
+
+    public void remove(long id) {
+        T entity = read(id);
         if (entity != null) {
-            getEntityManager().remove(entity);
+            entityManager.remove(entity);
         }
     }
 
-    protected List<T> findAll() {
-        CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
+    public List<T> findAll() {
+        CriteriaQuery<T> cq = entityManager.getCriteriaBuilder().createQuery(entityClass);
         cq.select(cq.from(entityClass));
-        return getEntityManager().createQuery(cq).getResultList();
+        return entityManager.createQuery(cq).getResultList();
     }
 
     protected List<T> findRange(int[] range) {
-        CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
+        CriteriaQuery<T> cq = entityManager.getCriteriaBuilder().createQuery(entityClass);
         cq.select(cq.from(entityClass));
-        TypedQuery<T> q = getEntityManager().createQuery(cq);
+        TypedQuery<T> q = entityManager.createQuery(cq);
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
         return q.getResultList();
     }
 
-    protected List<T> findRange(Integer from, Integer to) {
+    public List<T> findRange(Integer from, Integer to) {
         final List<T> result;
         if (from == null) {
             if (to == null) {
@@ -73,11 +80,11 @@ public abstract class RestResource<T extends EntityBase> {
         return result;
     }
 
-    protected int count() {
-        CriteriaQuery<Long> cq = getEntityManager().getCriteriaBuilder().createQuery(Long.class);
+    public long count() {
+        CriteriaQuery<Long> cq = entityManager.getCriteriaBuilder().createQuery(Long.class);
         Root<T> rt = cq.from(entityClass);
-        cq.select(getEntityManager().getCriteriaBuilder().count(rt));
-        TypedQuery<Long> q = getEntityManager().createQuery(cq);
-        return q.getSingleResult().intValue();
+        cq.select(entityManager.getCriteriaBuilder().count(rt));
+        TypedQuery<Long> q = entityManager.createQuery(cq);
+        return q.getSingleResult().longValue();
     }
 }

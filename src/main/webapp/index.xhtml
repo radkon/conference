@@ -15,7 +15,7 @@
     <br/>
     <h:form>
 
-        <p:dataTable id="speakers" var="speaker" value="#{speakerBean.speakers}">
+        <p:dataTable id="speakers" var="speaker" value="#{speakerBean.speakerList}">
             <f:facet name="header">Speakers</f:facet>
             <p:column sortBy="name" headerText="Name">
                 <h:outputText value="#{speaker.name}"/>

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -19,6 +20,16 @@ public class Speaker extends EntityBase {
     private String name;
     private String description;
 
+    public Speaker() {
+        // ok
+    }
+
+    public Speaker(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    @NotNull
     public String getName() {
         return name;
     }
@@ -27,6 +38,7 @@ public class Speaker extends EntityBase {
         this.name = name;
     }
 
+    @NotNull
     public String getDescription() {
         return description;
     }

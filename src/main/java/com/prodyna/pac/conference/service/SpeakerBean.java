@@ -1,24 +1,21 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.prodyna.pac.conference.service;
 
 import com.prodyna.pac.conference.datamodel.Speaker;
-import java.io.Serializable;
-import java.util.List;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author Markus Konrad <markus.konrad@prodyna.com>
  */
-@Named
+@Named("speakerBean")
 @SessionScoped
 public class SpeakerBean implements Serializable {
+
+    private static final long serialVersionUID = 6538999479484882364L;
 
     @EJB
     private SpeakerResource speakerResource;
@@ -28,7 +25,7 @@ public class SpeakerBean implements Serializable {
     private List<Speaker> speakerList;
 
     public void saveSpeaker() {
-        this.speakerResource.save(this.speaker);
+        this.speakerResource.create(speaker);
         reset();
     }
 
@@ -37,7 +34,7 @@ public class SpeakerBean implements Serializable {
         this.speakerList = null;
     }
 
-    public List<Speaker> getSpeakers() {
+    public List<Speaker> getSpeakerList() {
         if (this.speakerList == null || this.speakerList.isEmpty()) {
             this.speakerList = this.speakerResource.findAll();
         }
@@ -45,7 +42,7 @@ public class SpeakerBean implements Serializable {
     }
 
     public Speaker getSpeaker() {
-        return this.speaker;
+        return speaker;
     }
 
 }

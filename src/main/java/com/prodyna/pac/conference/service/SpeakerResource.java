@@ -1,83 +1,71 @@
 package com.prodyna.pac.conference.service;
 
 import com.prodyna.pac.conference.datamodel.Speaker;
-import java.util.List;
+
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
- *
  * @author Markus Konrad <markus.konrad@prodyna.com>
  */
 @Stateless
 @Path("speaker")
+@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 public class SpeakerResource extends RestResource<Speaker> {
-    
-    @PersistenceContext(unitName = "ConferencePU")
-    private EntityManager em;
 
     public SpeakerResource() {
         super(Speaker.class);
     }
 
-    @PUT
-    @Consumes({"application/xml", "application/json"})
+    @POST
     @Override
-    public void save(Speaker entity) {
-        super.save(entity);
+    public long create(Speaker entity) {
+        return super.create(entity);
+    }
+
+    @PUT
+    @Override
+    public Speaker update(Speaker entity) {
+        return super.update(entity);
     }
 
     @GET
     @Path("{id}")
-    @Produces({"application/xml", "application/json"})
     @Override
-    public Speaker findById(@PathParam("id") Long id) {
-        return super.findById(id);
+    public Speaker read(@PathParam("id") long id) {
+        return super.read(id);
     }
 
     @DELETE
     @Path("{id}")
     @Override
-    public void remove(@PathParam("id") Long id) {
+    public void remove(@PathParam("id") long id) {
         super.remove(id);
     }
 
     @GET
     @Path("_findAll")
-    @Produces({"application/xml", "application/json"})
     @Override
     public List<Speaker> findAll() {
         return super.findAll();
     }
-    
+
     @GET
     @Path("_findRange")
-    @Produces({"application/xml", "application/json"})
     @Override
     public List<Speaker> findRange(@QueryParam("from") Integer from, @QueryParam("to") Integer to) {
-        return super.findRange(from,to);
+        return super.findRange(from, to);
     }
 
     @GET
     @Path("_count")
-    @Produces("text/plain")
+    @Produces(MediaType.TEXT_PLAIN)
     @Override
-    public int count() {
+    public long count() {
         return super.count();
     }
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-    
 }
