@@ -1,12 +1,14 @@
 package com.prodyna.pac.conference.datamodel;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Objects;
 
-@Table(name = "Talk")
 @Entity
+@Table(name = "Talk")
+@EntityListeners({TalkChangeEntityListener.class})
 public class Talk extends EntityBase {
 
     private static final long serialVersionUID = -1840654869003298339L;
