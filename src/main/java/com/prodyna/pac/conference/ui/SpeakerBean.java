@@ -1,6 +1,7 @@
-package com.prodyna.pac.conference.service;
+package com.prodyna.pac.conference.ui;
 
 import com.prodyna.pac.conference.entity.Speaker;
+import com.prodyna.pac.conference.service.SpeakerResource;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
