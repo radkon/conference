@@ -1,7 +1,5 @@
 package com.prodyna.pac.conference.entity;
 
-import com.prodyna.pac.conference.service.TalkChangeEvent;
-
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.PostPersist;

@@ -1,5 +1,7 @@
 package com.prodyna.pac.conference.service;
 
+import com.prodyna.pac.conference.entity.TalkChangeEvent;
+
 import javax.annotation.Resource;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
