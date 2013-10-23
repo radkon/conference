@@ -8,4 +8,12 @@ public class TalkChangeEvent extends ChangeEvent<Talk> implements Serializable {
     protected TalkChangeEvent(EventType eventType, Talk entity) {
         super(eventType, entity);
     }
+
+    @Override
+    public String toString() {
+        return "TalkChangeEvent{" +
+                "eventType='" + getEventType() + '\'' +
+                ", entity='" + getEntity() +
+                '}';
+    }
 }
