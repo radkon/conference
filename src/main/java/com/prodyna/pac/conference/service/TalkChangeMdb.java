@@ -1,6 +1,8 @@
 package com.prodyna.pac.conference.service;
 
 
+import com.prodyna.pac.conference.entity.Talk;
+
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
@@ -21,7 +23,7 @@ public class TalkChangeMdb implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            logger.info("Hello from MDB! Received message: " + message.getBody(String.class));
+            logger.info("Hello from MDB! Received message: " + message.getBody(Talk.class));
         } catch (JMSException e) {
             logger.severe("Failed to retrieve message from queue 'jms/queue/TalkChanges': " + e.getMessage());
         }

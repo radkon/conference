@@ -35,6 +35,8 @@ public class ApplicationConfig extends Application {
      * given list with all resources defined in the project.
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(com.prodyna.pac.conference.service.ConferenceResource.class);
+        resources.add(com.prodyna.pac.conference.service.RoomResource.class);
         resources.add(com.prodyna.pac.conference.service.SpeakerResource.class);
         resources.add(com.prodyna.pac.conference.service.TalkResource.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.ClassNotFoundExceptionMapper.class);

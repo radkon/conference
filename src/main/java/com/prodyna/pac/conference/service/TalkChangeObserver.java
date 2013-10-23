@@ -26,7 +26,7 @@ public class TalkChangeObserver {
     @Asynchronous
     public void publishMessage(@Observes(during = TransactionPhase.AFTER_SUCCESS) TalkChangeEvent event) {
         log.info("Talk has changed!");
-        jmsContext.createProducer().send(queue, "Talk has changed!");
+        jmsContext.createProducer().send(queue, event);
     }
 
 }

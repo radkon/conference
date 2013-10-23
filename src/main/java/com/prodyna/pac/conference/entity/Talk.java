@@ -82,4 +82,15 @@ public class Talk extends EntityBase {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Talk{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", conference=" + (conference == null ? null : conference.getId()) +
+                ", room=" + (room == null ? null : room.getId()) +
+                '}';
+    }
 }

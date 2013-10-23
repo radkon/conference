@@ -5,31 +5,27 @@ import javax.inject.Inject;
 import javax.persistence.PostPersist;
 import javax.persistence.PostRemove;
 import javax.persistence.PostUpdate;
-import java.util.logging.Logger;
+
+import static com.prodyna.pac.conference.entity.ChangeEvent.EventType.*;
 
 public class TalkChangeEntityListener {
-
-    private final Logger logger = Logger.getLogger(getClass().getName());
 
     @Inject
     private Event<TalkChangeEvent> event;
 
     @PostPersist
     public void postPersist(Talk talk) {
-        logger.info("POST PERSIST: " + talk);
-        event.fire(new TalkChangeEvent());
+        event.fire(new TalkChangeEvent(CREATION, talk));
     }
 
     @PostUpdate
     public void postUpdate(Talk talk) {
-        logger.info("POST UPDATE: " + talk);
-        event.fire(new TalkChangeEvent());
+        event.fire(new TalkChangeEvent(UPDATE, talk));
     }
 
     @PostRemove
     public void postRemove(Talk talk) {
-        logger.info("POST DELETE: " + talk);
-        event.fire(new TalkChangeEvent());
+        event.fire(new TalkChangeEvent(DELETION, talk));
     }
 
 }
