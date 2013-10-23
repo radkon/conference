@@ -1,7 +1,7 @@
 package com.prodyna.pac.conference.service;
 
 import com.prodyna.pac.conference.core.RestResource;
-import com.prodyna.pac.conference.entity.Speaker;
+import com.prodyna.pac.conference.entity.Talk;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.*;
@@ -12,31 +12,31 @@ import java.util.List;
  * @author Markus Konrad <markus.konrad@prodyna.com>
  */
 @Stateless
-@Path("speaker")
+@Path("talk")
 @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-public class SpeakerResource extends RestResource<Speaker> {
+public class TalkResource extends RestResource<Talk> {
 
-    public SpeakerResource() {
-        super(Speaker.class);
+    protected TalkResource() {
+        super(Talk.class);
     }
 
     @POST
     @Override
-    public long create(Speaker entity) {
+    public long create(Talk entity) {
         return super.create(entity);
     }
 
     @PUT
     @Override
-    public Speaker update(Speaker entity) {
+    public Talk update(Talk entity) {
         return super.update(entity);
     }
 
     @GET
     @Path("{id}")
     @Override
-    public Speaker read(@PathParam("id") long id) {
+    public Talk read(@PathParam("id") long id) {
         return super.read(id);
     }
 
@@ -50,14 +50,14 @@ public class SpeakerResource extends RestResource<Speaker> {
     @GET
     @Path("_findAll")
     @Override
-    public List<Speaker> findAll() {
+    public List<Talk> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("_findRange")
     @Override
-    public List<Speaker> findRange(@QueryParam("from") Integer from, @QueryParam("to") Integer to) {
+    public List<Talk> findRange(@QueryParam("from") Integer from, @QueryParam("to") Integer to) {
         return super.findRange(from, to);
     }
 

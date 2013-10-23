@@ -1,6 +1,6 @@
-package com.prodyna.pac.conference.service;
+package com.prodyna.pac.conference.core;
 
-import com.prodyna.pac.conference.datamodel.EntityBase;
+import com.prodyna.pac.conference.entity.EntityBase;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

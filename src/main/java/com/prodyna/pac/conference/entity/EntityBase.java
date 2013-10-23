@@ -1,4 +1,4 @@
-package com.prodyna.pac.conference.datamodel;
+package com.prodyna.pac.conference.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

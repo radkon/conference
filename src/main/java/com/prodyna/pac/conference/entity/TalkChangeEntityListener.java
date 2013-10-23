@@ -1,4 +1,4 @@
-package com.prodyna.pac.conference.datamodel;
+package com.prodyna.pac.conference.entity;
 
 import com.prodyna.pac.conference.service.TalkChangeEvent;
 

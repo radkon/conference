@@ -18,7 +18,7 @@ import java.net.URI;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(Arquillian.class)
-public class SpeakerResourceTest {
+public class TalkResourceTest {
 
     private static final String WEBAPP_SRC = "src/main/webapp";
 

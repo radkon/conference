@@ -2,15 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.prodyna.pac.conference.service;
+package com.prodyna.pac.conference.core;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- *
  * @author Markus Konrad <markus.konrad@prodyna.com>
  */
 @ApplicationPath("rest")
@@ -22,8 +21,6 @@ public class ApplicationConfig extends Application {
         // following code can be used to customize Jersey 2.0 JSON provider:
         try {
             Class jsonProvider = Class.forName("org.glassfish.jersey.jackson.JacksonFeature");
-            // Class jsonProvider = Class.forName("org.glassfish.jersey.moxy.json.MoxyJsonFeature");
-            // Class jsonProvider = Class.forName("org.glassfish.jersey.jettison.JettisonFeature");
             resources.add(jsonProvider);
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(getClass().getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -39,6 +36,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.prodyna.pac.conference.service.SpeakerResource.class);
+        resources.add(com.prodyna.pac.conference.service.TalkResource.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.ClassNotFoundExceptionMapper.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.ConversionExceptionMapper.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.DatabaseExceptionMapper.class);
@@ -75,5 +73,5 @@ public class ApplicationConfig extends Application {
         resources.add(org.eclipse.persistence.jpa.rs.resources.unversioned.QueryResource.class);
         resources.add(org.eclipse.persistence.jpa.rs.resources.unversioned.SingleResultQueryResource.class);
     }
-    
+
 }
