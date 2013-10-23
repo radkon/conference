@@ -1,6 +1,6 @@
 package com.prodyna.pac.conference.service;
 
-import com.prodyna.pac.conference.entity.Speaker;
+import com.prodyna.pac.conference.entity.Talk;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -36,50 +36,73 @@ public class TalkResourceTest {
     @Test
     public void testCRUD() throws Exception {
 
-        try (SpeakerResourceClient client = new SpeakerResourceClient(new URI("http://localhost:8080/conference/rest/speaker"))) {
+        try (TalkResourceClient client = new TalkResourceClient(new URI("http://localhost:8080/conference/rest/talk"))) {
 
-            // persist new speaker
-            String name = "Markus Konrad";
-            String description = "JavaEE 6, JBoss 7.1.1, Hibernate 4.0.1";
-            Speaker speaker = new Speaker(name, description);
-            long id = client.create(speaker);
+            String name = "JavaEE 7";
+            String description = "Gives a short introduction to JavaEE 7. Knowledge in JavaEE 6 is assumed.";
+            int startTime = 1200;
+            int endTime = 1300;
+
+            // persist new talk
+            Talk talk = new Talk();
+            talk.setName(name);
+            talk.setDescription(description);
+            talk.setConference(null);
+            talk.setStartTime(startTime);
+            talk.setEndTime(endTime);
+            talk.setRoom(null);
+            long id = client.create(talk);
             assertThat(id).isGreaterThan(0);
 
-            // read back speaker
-            speaker = client.read(id);
-            assertThat(speaker).isNotNull();
-            assertThat(speaker.getId()).isEqualTo(id);
-            assertThat(speaker.getUuid()).isNotNull();
-            assertThat(speaker.getVersion()).isEqualTo(1L);
-            assertThat(speaker.getName()).isEqualTo(name);
-            assertThat(speaker.getDescription()).isEqualTo(description);
+            // read back talk
+            talk = client.read(id);
+            assertThat(talk).isNotNull();
+            assertThat(talk.getId()).isEqualTo(id);
+            assertThat(talk.getUuid()).isNotNull();
+            assertThat(talk.getVersion()).isEqualTo(1L);
+            assertThat(talk.getName()).isEqualTo(name);
+            assertThat(talk.getDescription()).isEqualTo(description);
+            assertThat(talk.getConference()).isNull();
+            assertThat(talk.getRoom()).isNull();
+            assertThat(talk.getStartTime()).isEqualTo(startTime);
+            assertThat(talk.getEndTime()).isEqualTo(endTime);
 
-            // read back speaker (again)
-            speaker = client.read(id);
-            assertThat(speaker).isNotNull();
-            assertThat(speaker.getId()).isEqualTo(id);
-            assertThat(speaker.getUuid()).isNotNull();
-            assertThat(speaker.getVersion()).isEqualTo(1L);
-            assertThat(speaker.getName()).isEqualTo(name);
-            assertThat(speaker.getDescription()).isEqualTo(description);
+            // read back talk (again)
+            talk = client.read(id);
+            assertThat(talk).isNotNull();
+            assertThat(talk.getId()).isEqualTo(id);
+            assertThat(talk.getUuid()).isNotNull();
+            assertThat(talk.getVersion()).isEqualTo(1L);
+            assertThat(talk.getName()).isEqualTo(name);
+            assertThat(talk.getDescription()).isEqualTo(description);
+            assertThat(talk.getConference()).isNull();
+            assertThat(talk.getRoom()).isNull();
+            assertThat(talk.getStartTime()).isEqualTo(startTime);
+            assertThat(talk.getEndTime()).isEqualTo(endTime);
 
-            // update speaker
+            // update talk
             description = "JavaEE 7, Glassfish 4, Eclipselink 2.5";
-            speaker.setDescription(description);
-            speaker = client.update(speaker);
-            assertThat(speaker).isNotNull();
-            assertThat(speaker.getId()).isEqualTo(id);
-            assertThat(speaker.getUuid()).isNotNull();
-            assertThat(speaker.getVersion()).isEqualTo(2L);
-            assertThat(speaker.getName()).isEqualTo(name);
-            assertThat(speaker.getDescription()).isEqualTo(description);
+            endTime = 1400;
+            talk.setDescription(description);
+            talk.setEndTime(endTime);
+            talk = client.update(talk);
+            assertThat(talk).isNotNull();
+            assertThat(talk.getId()).isEqualTo(id);
+            assertThat(talk.getUuid()).isNotNull();
+            assertThat(talk.getVersion()).isEqualTo(2L);
+            assertThat(talk.getName()).isEqualTo(name);
+            assertThat(talk.getDescription()).isEqualTo(description);
+            assertThat(talk.getConference()).isNull();
+            assertThat(talk.getRoom()).isNull();
+            assertThat(talk.getStartTime()).isEqualTo(startTime);
+            assertThat(talk.getEndTime()).isEqualTo(endTime);
 
-            // delete speaker
+            // delete talk
             client.delete(id);
 
-            // read back speaker
-            speaker = client.read(id);
-            assertThat(speaker).isNull();
+            // read back talk
+            talk = client.read(id);
+            assertThat(talk).isNull();
 
         }
     }
