@@ -18,9 +18,14 @@ public class MonitoringInterceptor {
         final String className = method.getDeclaringClass().getName();
         final String methodName = context.getMethod().getName();
         final String parameterList = buildParameterList(context);
-        logger.info(">>> " + className + "." + methodName + parameterList);
-        final Object result = context.proceed();
-        logger.info("<<< " + className + "." + methodName + parameterList);
+        final long startTime = System.currentTimeMillis();
+        final Object result;
+        try {
+            result = context.proceed();
+        } finally {
+            logger.info("Call to " + className + "." + methodName + parameterList + " took " + (System
+                    .currentTimeMillis() - startTime) + " ms.");
+        }
         return result;
     }
 
