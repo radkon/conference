@@ -2,6 +2,7 @@ package com.prodyna.pac.conference.service;
 
 import com.prodyna.pac.conference.core.RestResource;
 import com.prodyna.pac.conference.entity.Speaker;
+import com.prodyna.pac.conference.monitoring.Monitored;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.*;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author Markus Konrad <markus.konrad@prodyna.com>
  */
+@Monitored
 @Stateless
 @Path("speaker")
 @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

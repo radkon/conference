@@ -1,6 +1,6 @@
 package com.prodyna.pac.conference.service;
 
-import com.prodyna.pac.conference.core.Logged;
+import com.prodyna.pac.conference.monitoring.Monitored;
 import com.prodyna.pac.conference.core.RestResource;
 import com.prodyna.pac.conference.entity.Talk;
 
@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * @author Markus Konrad <markus.konrad@prodyna.com>
  */
+@Monitored
 @Stateless
-@Logged
 @Path("talk")
 @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

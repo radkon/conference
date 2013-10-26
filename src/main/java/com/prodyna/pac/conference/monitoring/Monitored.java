@@ -1,4 +1,4 @@
-package com.prodyna.pac.conference.core;
+package com.prodyna.pac.conference.monitoring;
 
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.ElementType;
@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-public @interface Logged {
+public @interface Monitored {
     // ok
 }

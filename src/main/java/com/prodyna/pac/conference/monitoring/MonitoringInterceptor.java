@@ -1,4 +1,4 @@
-package com.prodyna.pac.conference.core;
+package com.prodyna.pac.conference.monitoring;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
@@ -6,11 +6,11 @@ import javax.interceptor.InvocationContext;
 import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
-@Logged
+@Monitored
 @Interceptor
-public class LoggingInterceptor {
+public class MonitoringInterceptor {
 
-    private final Logger logger = Logger.getLogger(LoggingInterceptor.class.getName());
+    private final Logger logger = Logger.getLogger(MonitoringInterceptor.class.getName());
 
     @AroundInvoke
     public Object intercept(InvocationContext context) throws Exception {
