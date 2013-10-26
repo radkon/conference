@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.prodyna.pac.conference.core;
+package com.prodyna.pac.conference.bootstrap;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
