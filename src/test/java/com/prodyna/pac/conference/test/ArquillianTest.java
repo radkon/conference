@@ -1,4 +1,4 @@
-package com.prodyna.pac.conference.service;
+package com.prodyna.pac.conference.test;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
@@ -14,12 +14,15 @@ public abstract class ArquillianTest {
 
     @Deployment
     public static Archive<?> createDeployment() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class, "conference.war").addPackages(true, "com.prodyna.pac.conference");
+        WebArchive war = ShrinkWrap.create(WebArchive.class, "conference.war");
         war.addAsWebInfResource("META-INF/persistence.xml", "classes/META-INF/persistence.xml");
         war.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
                 .importDirectory(WEBAPP_SRC).as(GenericArchive.class),
                 "/", Filters.includeAll());
+        war.addAsWebInfResource("beans.xml", "beans.xml");
+        war.addPackages(true, "com.prodyna.pac.conference");
         war.addPackages(true, "org.slf4j");
+        war.addPackages(true, "org.assertj");
         return war;
     }
 

@@ -1,6 +1,8 @@
 package com.prodyna.pac.conference.service;
 
 import com.prodyna.pac.conference.entity.Talk;
+import com.prodyna.pac.conference.test.ArquillianTest;
+import com.prodyna.pac.conference.test.TalkResourceClient;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;

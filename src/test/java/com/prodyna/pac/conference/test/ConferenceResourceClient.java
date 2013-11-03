@@ -1,4 +1,4 @@
-package com.prodyna.pac.conference.service;
+package com.prodyna.pac.conference.test;
 
 import com.prodyna.pac.conference.entity.Conference;
 

@@ -1,4 +1,4 @@
-package com.prodyna.pac.conference.service;
+package com.prodyna.pac.conference.test;
 
 import org.glassfish.jersey.jackson.JacksonFeature;
 

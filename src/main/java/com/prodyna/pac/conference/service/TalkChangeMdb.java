@@ -1,13 +1,9 @@
 package com.prodyna.pac.conference.service;
 
 
-import com.prodyna.pac.conference.entity.TalkChangeEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
-import javax.jms.JMSException;
+import javax.inject.Inject;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
@@ -19,14 +15,11 @@ import javax.jms.MessageListener;
 })
 public class TalkChangeMdb implements MessageListener {
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    @Inject
+    private TalkChangeLogger logger;
 
     @Override
     public void onMessage(Message message) {
-        try {
-            log.info("Received message: {}", message.getBody(TalkChangeEvent.class));
-        } catch (JMSException e) {
-            log.error("Failed to retrieve message from queue 'jms/queue/TalkChanges': {}", e.getMessage());
-        }
+        logger.log(message);
     }
 }
