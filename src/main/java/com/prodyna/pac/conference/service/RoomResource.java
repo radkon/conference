@@ -13,8 +13,8 @@ import java.util.List;
  */
 @Stateless
 @Path("room")
-@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class RoomResource extends RestResource<Room> {
 
     protected RoomResource() {
@@ -27,45 +27,30 @@ public class RoomResource extends RestResource<Room> {
         return super.create(entity);
     }
 
-    @PUT
-    @Override
-    public Room update(Room entity) {
-        return super.update(entity);
-    }
-
     @GET
-    @Path("id")
+    @Path("{id}")
     @Override
     public Room read(@PathParam("id") long id) {
         return super.read(id);
     }
 
-    @DELETE
-    @Path("id")
+    @PUT
+    @Path("{id}")
     @Override
-    public void remove(@PathParam("id") long id) {
-        super.remove(id);
+    public Room update(@PathParam("id") long id, Room entity) {
+        return super.update(id, entity);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Override
+    public void delete(@PathParam("id") long id) {
+        super.delete(id);
     }
 
     @GET
-    @Path("_findAll")
     @Override
     public List<Room> findAll() {
         return super.findAll();
-    }
-
-    @GET
-    @Path("_findRange")
-    @Override
-    public List<Room> findRange(@QueryParam("from") Integer from, @QueryParam("to") Integer to) {
-        return super.findRange(from, to);
-    }
-
-    @GET
-    @Path("_count")
-    @Produces(MediaType.TEXT_PLAIN)
-    @Override
-    public long count() {
-        return super.count();
     }
 }

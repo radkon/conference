@@ -13,8 +13,8 @@ import java.util.List;
  */
 @Stateless
 @Path("conference")
-@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ConferenceResource extends RestResource<Conference> {
 
     protected ConferenceResource() {
@@ -27,45 +27,36 @@ public class ConferenceResource extends RestResource<Conference> {
         return super.create(entity);
     }
 
-    @PUT
-    @Override
-    public Conference update(Conference entity) {
-        return super.update(entity);
-    }
-
     @GET
-    @Path("id")
+    @Path("{id}")
     @Override
     public Conference read(@PathParam("id") long id) {
         return super.read(id);
     }
 
-    @DELETE
-    @Path("id")
+    @PUT
+    @Path("{id}")
     @Override
-    public void remove(@PathParam("id") long id) {
-        super.remove(id);
+    public Conference update(@PathParam("id") long id, Conference entity) {
+        return super.update(id, entity);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Override
+    public void delete(@PathParam("id") long id) {
+        super.delete(id);
     }
 
     @GET
-    @Path("_findAll")
     @Override
     public List<Conference> findAll() {
         return super.findAll();
     }
 
-    @GET
-    @Path("_findRange")
-    @Override
-    public List<Conference> findRange(@QueryParam("from") Integer from, @QueryParam("to") Integer to) {
-        return super.findRange(from, to);
-    }
-
-    @GET
-    @Path("_count")
-    @Produces(MediaType.TEXT_PLAIN)
-    @Override
-    public long count() {
-        return super.count();
+    @POST
+    @Path("{id}")
+    public Conference save(@PathParam("id") long id, Conference entity) {
+        return super.update(id, entity);
     }
 }

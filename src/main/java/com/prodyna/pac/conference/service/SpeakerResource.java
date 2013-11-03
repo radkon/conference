@@ -15,8 +15,8 @@ import java.util.List;
 @Monitored
 @Stateless
 @Path("speaker")
-@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class SpeakerResource extends RestResource<Speaker> {
 
     public SpeakerResource() {
@@ -29,12 +29,6 @@ public class SpeakerResource extends RestResource<Speaker> {
         return super.create(entity);
     }
 
-    @PUT
-    @Override
-    public Speaker update(Speaker entity) {
-        return super.update(entity);
-    }
-
     @GET
     @Path("{id}")
     @Override
@@ -42,33 +36,23 @@ public class SpeakerResource extends RestResource<Speaker> {
         return super.read(id);
     }
 
+    @PUT
+    @Path("{id}")
+    @Override
+    public Speaker update(@PathParam("id") long id, Speaker entity) {
+        return super.update(id, entity);
+    }
+
     @DELETE
     @Path("{id}")
     @Override
-    public void remove(@PathParam("id") long id) {
-        super.remove(id);
+    public void delete(@PathParam("id") long id) {
+        super.delete(id);
     }
 
     @GET
-    @Path("_findAll")
     @Override
     public List<Speaker> findAll() {
         return super.findAll();
     }
-
-    @GET
-    @Path("_findRange")
-    @Override
-    public List<Speaker> findRange(@QueryParam("from") Integer from, @QueryParam("to") Integer to) {
-        return super.findRange(from, to);
-    }
-
-    @GET
-    @Path("_count")
-    @Produces(MediaType.TEXT_PLAIN)
-    @Override
-    public long count() {
-        return super.count();
-    }
-
 }

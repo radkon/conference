@@ -1,8 +1,8 @@
 package com.prodyna.pac.conference.service;
 
-import com.prodyna.pac.conference.monitoring.Monitored;
 import com.prodyna.pac.conference.core.RestResource;
 import com.prodyna.pac.conference.entity.Talk;
+import com.prodyna.pac.conference.monitoring.Monitored;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.*;
@@ -29,12 +29,6 @@ public class TalkResource extends RestResource<Talk> {
         return super.create(entity);
     }
 
-    @PUT
-    @Override
-    public Talk update(Talk entity) {
-        return super.update(entity);
-    }
-
     @GET
     @Path("{id}")
     @Override
@@ -42,33 +36,30 @@ public class TalkResource extends RestResource<Talk> {
         return super.read(id);
     }
 
+    @PUT
+    @Path("{id}")
+    @Override
+    public Talk update(@PathParam("id") long id, Talk entity) {
+        return super.update(id, entity);
+    }
+
     @DELETE
     @Path("{id}")
     @Override
-    public void remove(@PathParam("id") long id) {
-        super.remove(id);
+    public void delete(@PathParam("id") long id) {
+        super.delete(id);
     }
 
     @GET
-    @Path("_findAll")
     @Override
     public List<Talk> findAll() {
         return super.findAll();
     }
 
-    @GET
-    @Path("_findRange")
-    @Override
-    public List<Talk> findRange(@QueryParam("from") Integer from, @QueryParam("to") Integer to) {
-        return super.findRange(from, to);
-    }
-
-    @GET
-    @Path("_count")
-    @Produces(MediaType.TEXT_PLAIN)
-    @Override
-    public long count() {
-        return super.count();
+    @POST
+    @Path("{id}")
+    public Talk save(@PathParam("id") long id, Talk entity) {
+        return super.update(id, entity);
     }
 
 }

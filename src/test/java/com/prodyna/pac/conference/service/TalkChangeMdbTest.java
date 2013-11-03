@@ -80,7 +80,7 @@ public class TalkChangeMdbTest extends ArquillianTest {
         endTime = 1400;
         talk.setDescription(description);
         talk.setEndTime(endTime);
-        talk = talkResource.update(talk);
+        talk = talkResource.update(id, talk);
         assertThat(talk).isNotNull();
         assertThat(talk.getId()).isEqualTo(id);
         assertThat(talk.getUuid()).isNotNull();
@@ -100,7 +100,7 @@ public class TalkChangeMdbTest extends ArquillianTest {
         assertThat(event.getEntity()).isEqualTo(talk);
 
         // delete talk
-        talkResource.remove(id);
+        talkResource.delete(id);
 
         // Expect talkChangeLogger being called...
         Thread.sleep(1000);
