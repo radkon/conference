@@ -1,16 +1,18 @@
 package com.prodyna.pac.conference.monitoring;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import java.lang.reflect.Method;
-import java.util.logging.Logger;
 
 @Monitored
 @Interceptor
 public class MonitoringInterceptor {
 
-    private final Logger logger = Logger.getLogger(MonitoringInterceptor.class.getName());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @AroundInvoke
     public Object intercept(InvocationContext context) throws Exception {
@@ -23,8 +25,8 @@ public class MonitoringInterceptor {
         try {
             result = context.proceed();
         } finally {
-            logger.info("Call to " + className + "." + methodName + parameterList + " took " + (System
-                    .currentTimeMillis() - startTime) + " ms.");
+            log.info("Call to {}.{}{} took {} ms.", className, methodName, parameterList, (System
+                    .currentTimeMillis() - startTime));
         }
         return result;
     }

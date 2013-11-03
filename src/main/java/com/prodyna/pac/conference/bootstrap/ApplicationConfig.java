@@ -4,6 +4,9 @@
  */
 package com.prodyna.pac.conference.bootstrap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -15,6 +18,8 @@ import java.util.Set;
 @ApplicationPath("rest")
 public class ApplicationConfig extends Application {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new HashSet<>();
@@ -23,7 +28,7 @@ public class ApplicationConfig extends Application {
             Class jsonProvider = Class.forName("org.glassfish.jersey.jackson.JacksonFeature");
             resources.add(jsonProvider);
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(getClass().getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            log.error(ex.getMessage(), ex);
         }
         addRestResourceClasses(resources);
         return resources;

@@ -19,6 +19,7 @@ public abstract class ArquillianTest {
         war.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
                 .importDirectory(WEBAPP_SRC).as(GenericArchive.class),
                 "/", Filters.includeAll());
+        war.addPackages(true, "org.slf4j");
         return war;
     }
 

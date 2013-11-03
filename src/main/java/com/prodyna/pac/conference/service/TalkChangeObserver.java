@@ -1,6 +1,8 @@
 package com.prodyna.pac.conference.service;
 
 import com.prodyna.pac.conference.entity.TalkChangeEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import javax.ejb.Asynchronous;
@@ -10,12 +12,11 @@ import javax.enterprise.event.TransactionPhase;
 import javax.inject.Inject;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
-import java.util.logging.Logger;
 
 @Stateless
 public class TalkChangeObserver {
 
-    private Logger log = Logger.getLogger(getClass().getName());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Inject
     private JMSContext jmsContext;
