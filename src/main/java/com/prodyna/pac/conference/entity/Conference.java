@@ -17,7 +17,7 @@ public class Conference extends EntityBase {
 
     private String location;
 
-    private Date startDatse;
+    private Date startDate;
 
     private Date endDate;
 
@@ -45,12 +45,12 @@ public class Conference extends EntityBase {
         this.location = location;
     }
 
-    public Date getStartDatse() {
-        return startDatse;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStartDatse(Date startDatse) {
-        this.startDatse = startDatse;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Date getEndDate() {
