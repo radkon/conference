@@ -4,6 +4,10 @@
  */
 package com.prodyna.pac.conference.bootstrap;
 
+import com.prodyna.pac.conference.conference.ConferenceResource;
+import com.prodyna.pac.conference.room.RoomResource;
+import com.prodyna.pac.conference.speaker.SpeakerResource;
+import com.prodyna.pac.conference.talk.TalkResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,10 +44,10 @@ public class ApplicationConfig extends Application {
      * given list with all resources defined in the project.
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.prodyna.pac.conference.service.ConferenceResource.class);
-        resources.add(com.prodyna.pac.conference.service.RoomResource.class);
-        resources.add(com.prodyna.pac.conference.service.SpeakerResource.class);
-        resources.add(com.prodyna.pac.conference.service.TalkResource.class);
+        resources.add(ConferenceResource.class);
+        resources.add(RoomResource.class);
+        resources.add(SpeakerResource.class);
+        resources.add(TalkResource.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.ClassNotFoundExceptionMapper.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.ConversionExceptionMapper.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.DatabaseExceptionMapper.class);

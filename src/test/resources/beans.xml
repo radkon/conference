@@ -9,7 +9,7 @@
     </interceptors>
 
     <alternatives>
-        <class>com.prodyna.pac.conference.service.TalkChangeLoggerMock</class>
+        <class>com.prodyna.pac.conference.talk.TalkChangeLoggerMock</class>
     </alternatives>
 
 </beans>
