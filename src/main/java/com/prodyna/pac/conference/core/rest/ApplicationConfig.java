@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.prodyna.pac.conference.bootstrap;
+package com.prodyna.pac.conference.core.rest;
 
 import com.prodyna.pac.conference.conference.ConferenceResource;
 import com.prodyna.pac.conference.room.RoomResource;
