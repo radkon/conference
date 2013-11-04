@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE import-control PUBLIC
+        "-//Puppy Crawl//DTD Import Control 1.1//EN"
+        "http://www.puppycrawl.com/dtds/import_control_1_1.dtd">
+
+<import-control pkg="com.prodyna.pac.conference">
+
+    <!-- Standard Library -->
+    <allow pkg="java"/>
+
+    <!-- Logging -->
+    <allow pkg="org.slf4j"/>
+    <disallow pkg="java.util.logging"/>
+
+    <!-- javax.* -->
+    <allow pkg="javax.annotation"/>
+    <allow pkg="javax.ejb"/>
+    <allow pkg="javax.enterprise"/>
+    <allow pkg="javax.inject"/>
+    <allow pkg="javax.interceptor"/>
+    <allow pkg="javax.jms"/>
+    <allow pkg="javax.persistence"/>
+    <allow pkg="javax.validation"/>
+    <allow pkg="javax.ws.rs"/>
+
+    <subpackage name="conference">
+        <allow pkg="com.prodyna.pac.conference.conference"/>
+        <allow pkg="com.prodyna.pac.conference.core"/>
+        <allow pkg="com.prodyna.pac.conference.monitoring"/>
+    </subpackage>
+
+    <subpackage name="core">
+        <allow pkg="com.prodyna.pac.conference.core"/>
+    </subpackage>
+
+    <subpackage name="monitoring">
+        <allow pkg="com.prodyna.pac.conference.core"/>
+        <allow pkg="com.prodyna.pac.conference.monitoring"/>
+    </subpackage>
+
+    <subpackage name="room">
+        <allow pkg="com.prodyna.pac.conference.core"/>
+        <allow pkg="com.prodyna.pac.conference.monitoring"/>
+        <allow pkg="com.prodyna.pac.conference.room"/>
+    </subpackage>
+
+    <subpackage name="speaker">
+        <allow pkg="com.prodyna.pac.conference.core"/>
+        <allow pkg="com.prodyna.pac.conference.monitoring"/>
+        <allow pkg="com.prodyna.pac.conference.speaker"/>
+    </subpackage>
+
+    <subpackage name="talk">
+        <allow pkg="com.prodyna.pac.conference.conference"/>
+        <allow pkg="com.prodyna.pac.conference.core"/>
+        <allow pkg="com.prodyna.pac.conference.monitoring"/>
+        <allow pkg="com.prodyna.pac.conference.room"/>
+        <allow pkg="com.prodyna.pac.conference.speaker"/>
+        <allow pkg="com.prodyna.pac.conference.talk"/>
+    </subpackage>
+
+</import-control>
