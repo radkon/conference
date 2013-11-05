@@ -4,10 +4,8 @@ import com.prodyna.pac.conference.conference.Conference;
 import com.prodyna.pac.conference.core.entity.EntityBase;
 import com.prodyna.pac.conference.room.Room;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -17,10 +15,12 @@ public class Talk extends EntityBase {
 
     private static final long serialVersionUID = -1840654869003298339L;
 
+    public static final String VALIDATE_CONFERENCE_TALK_PERIOD = "Talk.validateConferenceTalkPeriod";
+
     private String name;
     private String description;
-    private long startTime;
-    private long endTime;
+    private Date startTime;
+    private Date endTime;
     private Conference conference;
     private Room room;
 
@@ -40,19 +40,21 @@ public class Talk extends EntityBase {
         this.description = description;
     }
 
-    public long getStartTime() {
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public long getEndTime() {
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

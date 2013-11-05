@@ -2,6 +2,7 @@ package com.prodyna.pac.conference.talk;
 
 import com.prodyna.pac.conference.core.test.ArquillianTest;
 import org.jboss.arquillian.junit.Arquillian;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,16 +27,16 @@ public class TalkChangeMdbTest extends ArquillianTest {
 
         String name = "JavaEE 7";
         String description = "Gives a short introduction to JavaEE 7. Knowledge in JavaEE 6 is assumed.";
-        int startTime = 1200;
-        int endTime = 1300;
+        DateTime startTime = new DateTime(2013,1,1,12,0);
+        DateTime endTime = startTime.plusHours(1);
 
         // persist new talk
         Talk talk = new Talk();
         talk.setName(name);
         talk.setDescription(description);
         talk.setConference(null);
-        talk.setStartTime(startTime);
-        talk.setEndTime(endTime);
+        talk.setStartTime(startTime.toDate());
+        talk.setEndTime(endTime.toDate());
         talk.setRoom(null);
         long id = talkResource.create(talk);
         assertThat(id).isGreaterThan(0);
@@ -57,8 +58,8 @@ public class TalkChangeMdbTest extends ArquillianTest {
         assertThat(talk.getDescription()).isEqualTo(description);
         assertThat(talk.getConference()).isNull();
         assertThat(talk.getRoom()).isNull();
-        assertThat(talk.getStartTime()).isEqualTo(startTime);
-        assertThat(talk.getEndTime()).isEqualTo(endTime);
+        assertThat(talk.getStartTime()).isEqualTo(startTime.toDate());
+        assertThat(talk.getEndTime()).isEqualTo(endTime.toDate());
 
         // read back talk (again)
         talk = talkResource.read(id);
@@ -70,14 +71,14 @@ public class TalkChangeMdbTest extends ArquillianTest {
         assertThat(talk.getDescription()).isEqualTo(description);
         assertThat(talk.getConference()).isNull();
         assertThat(talk.getRoom()).isNull();
-        assertThat(talk.getStartTime()).isEqualTo(startTime);
-        assertThat(talk.getEndTime()).isEqualTo(endTime);
+        assertThat(talk.getStartTime()).isEqualTo(startTime.toDate());
+        assertThat(talk.getEndTime()).isEqualTo(endTime.toDate());
 
         // update talk
         description = "JavaEE 7, Glassfish 4, Eclipselink 2.5";
-        endTime = 1400;
+        endTime = endTime.plusHours(1);
         talk.setDescription(description);
-        talk.setEndTime(endTime);
+        talk.setEndTime(endTime.toDate());
         talk = talkResource.update(id, talk);
         assertThat(talk).isNotNull();
         assertThat(talk.getId()).isEqualTo(id);
@@ -87,8 +88,8 @@ public class TalkChangeMdbTest extends ArquillianTest {
         assertThat(talk.getDescription()).isEqualTo(description);
         assertThat(talk.getConference()).isNull();
         assertThat(talk.getRoom()).isNull();
-        assertThat(talk.getStartTime()).isEqualTo(startTime);
-        assertThat(talk.getEndTime()).isEqualTo(endTime);
+        assertThat(talk.getStartTime()).isEqualTo(startTime.toDate());
+        assertThat(talk.getEndTime()).isEqualTo(endTime.toDate());
 
         // Expect talkChangeLogger being called...
         Thread.sleep(1000);

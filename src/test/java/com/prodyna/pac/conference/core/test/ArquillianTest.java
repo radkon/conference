@@ -22,6 +22,7 @@ public abstract class ArquillianTest {
         war.addAsWebInfResource("beans.xml", "beans.xml");
         war.addPackages(true, "com.prodyna.pac.conference");
         war.addPackages(true, "org.slf4j");
+        war.addPackages(true, "org.joda.time");
         war.addPackages(true, "org.assertj");
         return war;
     }

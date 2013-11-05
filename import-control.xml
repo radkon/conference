@@ -12,6 +12,9 @@
     <allow pkg="org.slf4j"/>
     <disallow pkg="java.util.logging"/>
 
+    <!-- JodaTime -->
+    <allow pkg="org.joda.time" />
+
     <!-- javax.* -->
     <allow pkg="javax.annotation"/>
     <allow pkg="javax.ejb"/>

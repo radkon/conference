@@ -4,7 +4,9 @@ import com.prodyna.pac.conference.core.entity.EntityBase;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.sql.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.util.Objects;
 
 @Table(name = "Conference")
@@ -47,6 +49,7 @@ public class Conference extends EntityBase {
         this.location = location;
     }
 
+    @Temporal(TemporalType.DATE)
     public Date getStartDate() {
         return startDate;
     }
@@ -55,6 +58,7 @@ public class Conference extends EntityBase {
         this.startDate = startDate;
     }
 
+    @Temporal(TemporalType.DATE)
     public Date getEndDate() {
         return endDate;
     }
