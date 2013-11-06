@@ -1,6 +1,7 @@
 package com.prodyna.pac.conference.conference;
 
 import com.prodyna.pac.conference.core.rest.RestResource;
+import com.prodyna.pac.conference.monitoring.Monitored;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.*;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * @author Markus Konrad <markus.konrad@prodyna.com>
  */
+@Monitored
 @Stateless
 @Path("conference")
 @Consumes(MediaType.APPLICATION_JSON)
