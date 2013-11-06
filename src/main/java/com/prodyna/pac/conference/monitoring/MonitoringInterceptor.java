@@ -34,10 +34,12 @@ public class MonitoringInterceptor {
     private String buildParameterList(InvocationContext context) {
         final StringBuilder parameterListBuilder = new StringBuilder("(");
         final Object[] parameters = context.getParameters();
-        for (int i = 0, length = parameters.length; i < length; i++) {
-            parameterListBuilder.append(parameters[i].toString());
-            if (length > 1 && i < length) {
-                parameterListBuilder.append(", ");
+        if (parameters != null) {
+            for (int i = 0, length = parameters.length; i < length; i++) {
+                parameterListBuilder.append(parameters[i].toString());
+                if (length > 1 && i < length) {
+                    parameterListBuilder.append(", ");
+                }
             }
         }
         return parameterListBuilder.append(")").toString();
