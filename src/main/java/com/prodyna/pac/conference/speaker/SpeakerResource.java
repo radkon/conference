@@ -54,4 +54,10 @@ public class SpeakerResource extends RestResource<Speaker> {
     public List<Speaker> findAll() {
         return super.findAll();
     }
+
+    @POST
+    @Path("{id}")
+    public Speaker save(@PathParam("id") long id, Speaker entity) {
+        return super.update(id, entity);
+    }
 }
