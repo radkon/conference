@@ -52,4 +52,5 @@ public class RoomResource extends RestResource<Room> {
     public List<Room> findAll() {
         return super.findAll();
     }
+
 }

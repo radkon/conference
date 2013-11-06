@@ -50,4 +50,8 @@ public abstract class RestResource<T extends EntityBase> {
         cq.select(cq.from(entityClass));
         return entityManager.createQuery(cq).getResultList();
     }
+
+    protected EntityManager getEntityManager() {
+        return entityManager;
+    }
 }

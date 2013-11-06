@@ -11,11 +11,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "Talk")
 @EntityListeners({TalkChangeEntityListener.class})
+@NamedQueries({@NamedQuery(name = Talk.FIND_BY_CONFERENCE, query = "SELECT t FROM Talk t WHERE t.conference = :conference"),
+        @NamedQuery(name = Talk.FIND_AVAILABLE_ROOMS_BY_DURATION,
+                query = "SELECT t.room FROM Talk t " +
+                        "WHERE (t.startTime NOT BETWEEN :startTime AND :endTime) " +
+                        "AND (t.endTime NOT BETWEEN :startTime AND :endTime) " +
+                        "AND ((:startTime NOT BETWEEN t.startTime AND t.endTime) AND (:endTime NOT BETWEEN t.startTime AND t.endTime))")})
 public class Talk extends EntityBase {
 
     private static final long serialVersionUID = -1840654869003298339L;
 
-    public static final String VALIDATE_CONFERENCE_TALK_PERIOD = "Talk.validateConferenceTalkPeriod";
+    public static final String FIND_BY_CONFERENCE = "Talk.findByConference";
+    public static final String FIND_AVAILABLE_ROOMS_BY_DURATION = "Talk.findAvailableRoomsByDuration";
 
     private String name;
     private String description;
