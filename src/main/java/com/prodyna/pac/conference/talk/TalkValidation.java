@@ -1,7 +1,6 @@
 package com.prodyna.pac.conference.talk;
 
 import com.prodyna.pac.conference.conference.Conference;
-import com.prodyna.pac.conference.conference.ConferenceChangeEvent;
 import com.prodyna.pac.conference.conference.ConferenceResource;
 import com.prodyna.pac.conference.core.exception.ValidationException;
 import com.prodyna.pac.conference.room.Room;
@@ -9,13 +8,10 @@ import com.prodyna.pac.conference.room.RoomResource;
 import com.prodyna.pac.conference.speaker.Speaker;
 import org.joda.time.DateTime;
 
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static com.prodyna.pac.conference.core.event.ChangeEvent.EventType;
 
 /**
  * @author Markus Konrad <markus.konrad@prodyna.com>
@@ -37,14 +33,14 @@ public class TalkValidation {
             validate(event.getEntity());
         }
     }
-*/
+
     public void on(@Observes ConferenceChangeEvent event) {
         final EventType eventType = event.getEventType();
         if (eventType == EventType.CREATION || eventType == EventType.UPDATE) {
             validate(event.getEntity());
         }
     }
-
+*/
     private void validate(final Talk talk) {
         final Set<TalkValidationViolation> violations = new HashSet<>();
         validateSpeakerAvailable(violations, talk);

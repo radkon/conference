@@ -11,7 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Talk")
 @EntityListeners({TalkChangeEntityListener.class})
-@NamedQueries({@NamedQuery(name = Talk.FIND_BY_CONFERENCE, query = "SELECT t FROM Talk t WHERE t.conference = :conference"),
+@NamedQueries({@NamedQuery(name = Talk.FIND_BY_CONFERENCE, query = "SELECT t FROM Talk t WHERE t.conference.id = :conferenceId"),
         @NamedQuery(name = Talk.FIND_AVAILABLE_ROOMS_BY_DURATION,
                 query = "SELECT t.room FROM Talk t " +
                         "WHERE (t.startTime NOT BETWEEN :startTime AND :endTime) " +
