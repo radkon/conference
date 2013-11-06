@@ -53,4 +53,10 @@ public class RoomResource extends RestResource<Room> {
         return super.findAll();
     }
 
+    @POST
+    @Path("{id}")
+    public Room save(@PathParam("id") long id, Room entity) {
+        return super.update(id, entity);
+    }
+
 }
