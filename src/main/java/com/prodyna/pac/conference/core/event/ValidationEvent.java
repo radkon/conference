@@ -5,13 +5,13 @@ package com.prodyna.pac.conference.core.event;
  */
 public abstract class ValidationEvent<T> {
 
-    private final T validationTarget;
+    private final T entity;
 
-    protected ValidationEvent(T validationTarget) {
-        this.validationTarget = validationTarget;
+    protected ValidationEvent(T entity) {
+        this.entity = entity;
     }
 
-    public T getValidationTarget() {
-        return validationTarget;
+    public T getEntity() {
+        return entity;
     }
 }

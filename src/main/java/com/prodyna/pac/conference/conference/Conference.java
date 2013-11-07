@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Table(name = "Conference")
 @Entity
-@EntityListeners({ConferenceChangeEntityListener.class})
+@EntityListeners({ConferenceEntityListener.class})
 public class Conference extends EntityBase {
 
     private static final long serialVersionUID = 7225844642218698951L;
