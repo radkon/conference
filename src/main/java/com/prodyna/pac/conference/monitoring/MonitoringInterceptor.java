@@ -3,6 +3,7 @@ package com.prodyna.pac.conference.monitoring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -12,7 +13,10 @@ import java.lang.reflect.Method;
 @Interceptor
 public class MonitoringInterceptor {
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(Performance.class);
+
+    @Inject
+    private PerformanceMXBean performance;
 
     @AroundInvoke
     public Object intercept(InvocationContext context) throws Exception {
@@ -25,8 +29,9 @@ public class MonitoringInterceptor {
         try {
             result = context.proceed();
         } finally {
-            log.info("Call to {}.{}{} took {} ms.", className, methodName, parameterList, (System
-                    .currentTimeMillis() - startTime));
+            final long elapsedTime = System.currentTimeMillis() - startTime;
+            performance.logInvocation(className, methodName, elapsedTime);
+            logger.info("Call to " + className + "." + methodName + parameterList + " took " + elapsedTime + " ms.");
         }
         return result;
     }
