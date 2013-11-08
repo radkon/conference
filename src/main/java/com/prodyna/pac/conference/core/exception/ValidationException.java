@@ -1,8 +1,5 @@
 package com.prodyna.pac.conference.core.exception;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,7 +8,7 @@ import java.util.List;
 /**
  * @author Markus Konrad <markus.konrad@prodyna.com>
  */
-public class ValidationException extends WebApplicationException {
+public class ValidationException extends RuntimeException {
 
     private static final long serialVersionUID = -6761949640646316176L;
 
@@ -22,7 +19,7 @@ public class ValidationException extends WebApplicationException {
     }
 
     public ValidationException(final Collection<String> messages) {
-        super(Response.status(Response.Status.EXPECTATION_FAILED).entity(messages).type(MediaType.APPLICATION_JSON_TYPE).build());
+//        super(Response.status(Response.Status.EXPECTATION_FAILED).entity(messages).type(MediaType.APPLICATION_JSON_TYPE).build());
         this.messages = new ArrayList<>(messages);
     }
 

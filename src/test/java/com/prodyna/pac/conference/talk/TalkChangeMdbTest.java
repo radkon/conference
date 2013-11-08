@@ -35,8 +35,8 @@ public class TalkChangeMdbTest extends ArquillianTest {
         talk.setName(name);
         talk.setDescription(description);
         talk.setConference(null);
-        talk.setStartTime(startTime.toDate());
-        talk.setEndTime(endTime.toDate());
+        talk.setStartTime(startTime.getMillis());
+        talk.setEndTime(endTime.getMillis());
         talk.setRoom(null);
         long id = talkResource.create(talk);
         assertThat(id).isGreaterThan(0);
@@ -78,7 +78,7 @@ public class TalkChangeMdbTest extends ArquillianTest {
         description = "JavaEE 7, Glassfish 4, Eclipselink 2.5";
         endTime = endTime.plusHours(1);
         talk.setDescription(description);
-        talk.setEndTime(endTime.toDate());
+        talk.setEndTime(endTime.getMillis());
         talk = talkResource.update(id, talk);
         assertThat(talk).isNotNull();
         assertThat(talk.getId()).isEqualTo(id);

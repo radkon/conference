@@ -42,4 +42,12 @@ public class Room extends EntityBase {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "name='" + name + '\'' +
+                ", capacity=" + capacity +
+                '}';
+    }
 }

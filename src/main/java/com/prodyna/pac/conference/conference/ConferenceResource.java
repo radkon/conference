@@ -4,6 +4,8 @@ import com.prodyna.pac.conference.core.rest.RestResource;
 import com.prodyna.pac.conference.monitoring.Monitored;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -17,6 +19,9 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ConferenceResource extends RestResource<Conference> {
+
+    @Inject
+    private Event<ConferenceValidationEvent> event;
 
     protected ConferenceResource() {
         super(Conference.class);
@@ -39,6 +44,7 @@ public class ConferenceResource extends RestResource<Conference> {
     @Path("{id}")
     @Override
     public Conference update(@PathParam("id") long id, Conference entity) {
+        event.fire(new ConferenceValidationEvent(entity));
         return super.update(id, entity);
     }
 

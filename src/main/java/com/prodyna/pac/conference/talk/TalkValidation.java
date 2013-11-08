@@ -4,7 +4,6 @@ import com.prodyna.pac.conference.conference.Conference;
 import com.prodyna.pac.conference.conference.ConferenceResource;
 import com.prodyna.pac.conference.conference.ConferenceValidationEvent;
 import com.prodyna.pac.conference.core.exception.ValidationException;
-import com.prodyna.pac.conference.room.Room;
 import com.prodyna.pac.conference.room.RoomResource;
 import com.prodyna.pac.conference.speaker.Speaker;
 import org.joda.time.DateTime;
@@ -95,20 +94,26 @@ public class TalkValidation {
     }
 
     private void validateRoomAvailable(final Set<TalkValidationViolation> violations, final Talk talk) {
-        final List<Room> availableRooms = talkResource.findAvailableRoomsByTalkDuration(talk.getStartTime().getTime(), talk.getEndTime().getTime());
-        if (!availableRooms.contains(talk.getRoom())) {
+        final Long numberOfParallelTalks;
+        if (talk != null && talk.getRoom() != null) {
+             numberOfParallelTalks = talkResource.checkRoomAvailableByTalkDuration(talk.getRoom().getId(),
+                    talk.getStartTime(), talk.getEndTime());
+        } else {
+            numberOfParallelTalks = 0L;
+        }
+        if (numberOfParallelTalks > 0L) {
             violations.add(TalkValidationViolation.ROOM_UNAVAILABLE);
         }
     }
 
     private void validateSpeakerAvailable(final Set<TalkValidationViolation> violations, final Talk talk) {
-        final List<Speaker> availableSpeakers = talkResource.findAvailableSpeakerByTalkDuration(talk.getStartTime().getTime(), talk.getEndTime().getTime());
-        final List<Speaker> speakers = talkResource.findSpeakersByTalk(talk.getId());
-        for (final Speaker speaker : speakers) {
-            if (!availableSpeakers.contains(speaker)){
-                violations.add(TalkValidationViolation.SPEAKER_UNAVAILABLE);
-            }
-        }
+        final List<Speaker> availableSpeakers = talkResource.findAvailableSpeakerByTalkDuration(talk.getStartTime(), talk.getEndTime());
+//
+//        for (final Speaker speaker : speakers) {
+//            if (!availableSpeakers.contains(speaker)){
+//                violations.add(TalkValidationViolation.SPEAKER_UNAVAILABLE);
+//            }
+//        }
     }
 
 }

@@ -2,13 +2,15 @@ package com.prodyna.pac.conference.conference;
 
 import com.prodyna.pac.conference.core.entity.EntityBase;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.Objects;
 
 @Table(name = "Conference")
 @Entity
-@EntityListeners({ConferenceEntityListener.class})
 public class Conference extends EntityBase {
 
     private static final long serialVersionUID = 7225844642218698951L;

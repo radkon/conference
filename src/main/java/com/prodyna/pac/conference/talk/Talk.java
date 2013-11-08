@@ -5,29 +5,29 @@ import com.prodyna.pac.conference.core.entity.EntityBase;
 import com.prodyna.pac.conference.room.Room;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Talk")
 @EntityListeners({TalkEntityListener.class})
 @NamedQueries({@NamedQuery(name = Talk.FIND_BY_CONFERENCE, query = "SELECT t FROM Talk t WHERE t.conference.id = :conferenceId"),
-        @NamedQuery(name = Talk.FIND_AVAILABLE_ROOMS_BY_DURATION,
-                query = "SELECT t.room FROM Talk t " +
-                        "WHERE (t.startTime NOT BETWEEN :startTime AND :endTime) " +
+        @NamedQuery(name = Talk.CHECK_ROOM_AVAILABLE_BY_TALK_DURATION,
+                query = "SELECT COUNT(talk) FROM Talk talk " +
+                        "WHERE talk.room.id = :roomId " +
+                        "AND talk.room NOT IN (SELECT talk.room FROM Talk t WHERE (t.startTime NOT BETWEEN :startTime AND :endTime) " +
                         "AND (t.endTime NOT BETWEEN :startTime AND :endTime) " +
-                        "AND ((:startTime NOT BETWEEN t.startTime AND t.endTime) AND (:endTime NOT BETWEEN t.startTime AND t.endTime))")})
+                        "AND ((:startTime NOT BETWEEN t.startTime AND t.endTime) AND (:endTime NOT BETWEEN t.startTime AND t.endTime)))")})
 public class Talk extends EntityBase {
 
     private static final long serialVersionUID = -1840654869003298339L;
 
     public static final String FIND_BY_CONFERENCE = "Talk.findByConference";
-    public static final String FIND_AVAILABLE_ROOMS_BY_DURATION = "Talk.findAvailableRoomsByDuration";
+    public static final String CHECK_ROOM_AVAILABLE_BY_TALK_DURATION = "Talk.checkRoomAvailableByDuration";
 
     private String name;
     private String description;
-    private Date startTime;
-    private Date endTime;
+    private long startTime;
+    private long endTime;
     private Conference conference;
     private Room room;
 
@@ -47,21 +47,19 @@ public class Talk extends EntityBase {
         this.description = description;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    public Date getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    public Date getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 

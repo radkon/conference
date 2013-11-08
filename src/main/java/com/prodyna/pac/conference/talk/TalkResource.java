@@ -3,14 +3,13 @@ package com.prodyna.pac.conference.talk;
 import com.prodyna.pac.conference.conference.ConferenceResource;
 import com.prodyna.pac.conference.core.rest.RestResource;
 import com.prodyna.pac.conference.monitoring.Monitored;
-import com.prodyna.pac.conference.room.Room;
 import com.prodyna.pac.conference.speaker.Speaker;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +23,9 @@ import java.util.List;
 public class TalkResource extends RestResource<Talk> {
 
     @Inject
+    private Event<TalkValidationEvent> validationEvents;
+
+    @Inject
     private ConferenceResource conferenceResource;
 
     protected TalkResource() {
@@ -33,6 +35,7 @@ public class TalkResource extends RestResource<Talk> {
     @POST
     @Override
     public long create(Talk entity) {
+        validationEvents.fire(new TalkValidationEvent(entity));
         return super.create(entity);
     }
 
@@ -47,6 +50,7 @@ public class TalkResource extends RestResource<Talk> {
     @Path("{id}")
     @Override
     public Talk update(@PathParam("id") long id, Talk entity) {
+        validationEvents.fire(new TalkValidationEvent(entity));
         return super.update(id, entity);
     }
 
@@ -78,20 +82,25 @@ public class TalkResource extends RestResource<Talk> {
     }
 
     @GET
-    @Path("_findAvailableRoomsByTalkDuration")
-    public List<Room> findAvailableRoomsByTalkDuration(@QueryParam("startTime") long startTime, @QueryParam("endTime") long endTime) {
-        return getEntityManager().createNamedQuery(Talk.FIND_AVAILABLE_ROOMS_BY_DURATION, Room.class)
-                .setParameter("startTime", new Date(startTime))
-                .setParameter("endTime", new Date(endTime))
-                .getResultList();
+    @Path("_checkRoomAvailableByTalkDuration")
+    public Long checkRoomAvailableByTalkDuration(@QueryParam("roomId") long roomId,
+                                                 @QueryParam("startTime") long startTime,
+                                                 @QueryParam("endTime") long endTime) {
+        return getEntityManager().createNamedQuery(Talk.CHECK_ROOM_AVAILABLE_BY_TALK_DURATION, Long.class)
+                .setParameter("roomId", roomId)
+                .setParameter("startTime", startTime)
+                .setParameter("endTime", endTime)
+                .getSingleResult();
     }
 
     @GET
     @Path("_findAvailableSpeakerByTalkDuration")
-    public List<Speaker> findAvailableSpeakerByTalkDuration(@QueryParam("startTime") long startTime, @QueryParam("endTime") long endTime) {
-        return getEntityManager().createNamedQuery(TalkSpeakerAssignment.FIND_AVAILABLE_SPEAKERS_BY_DURATION, Speaker.class)
-                .setParameter("startTime", new Date(startTime))
-                .setParameter("endTime", new Date(endTime))
+    public List<Speaker> findAvailableSpeakerByTalkDuration(@QueryParam("startTime") long startTime,
+                                                            @QueryParam("endTime") long endTime) {
+        return getEntityManager().createNamedQuery(TalkSpeakerAssignment.FIND_AVAILABLE_SPEAKERS_BY_DURATION,
+                Speaker.class)
+                .setParameter("startTime", startTime)
+                .setParameter("endTime", endTime)
                 .getResultList();
     }
 
