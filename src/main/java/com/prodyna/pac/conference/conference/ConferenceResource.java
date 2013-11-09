@@ -18,7 +18,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ConferenceResource extends RestResource<Conference> {
 
-    protected ConferenceResource() {
+    public ConferenceResource() {
         super(Conference.class);
     }
 

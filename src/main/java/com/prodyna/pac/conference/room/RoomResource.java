@@ -18,7 +18,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class RoomResource extends RestResource<Room> {
 
-    protected RoomResource() {
+    public RoomResource() {
         super(Room.class);
     }
 

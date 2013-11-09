@@ -26,7 +26,7 @@ public class TalkResource extends RestResource<Talk> {
     @Inject
     private ConferenceResource conferenceResource;
 
-    protected TalkResource() {
+    public TalkResource() {
         super(Talk.class);
     }
 
