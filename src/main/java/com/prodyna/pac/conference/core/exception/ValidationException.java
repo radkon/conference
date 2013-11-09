@@ -19,7 +19,8 @@ public class ValidationException extends RuntimeException {
     }
 
     public ValidationException(final Collection<String> messages) {
-//        super(Response.status(Response.Status.EXPECTATION_FAILED).entity(messages).type(MediaType.APPLICATION_JSON_TYPE).build());
+//        super(Response.status(Response.Status.BAD_REQUEST).entity(messages).type(MediaType.APPLICATION_JSON_TYPE)
+// .build());
         this.messages = new ArrayList<>(messages);
     }
 

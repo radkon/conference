@@ -38,7 +38,7 @@ public class TalkValidation {
 
     private void validate(final Talk talk) {
         final Set<TalkValidationViolation> violations = new HashSet<>();
-        validateSpeakerAvailable(violations, talk);
+        validateSpeakersAvailable(violations, talk);
         validateRoomAvailable(violations, talk);
         validateConferenceAndTalkPeriod(violations, talk);
         if (!violations.isEmpty()) {
@@ -72,14 +72,16 @@ public class TalkValidation {
         }
     }
 
-    private void validateConferenceAndTalkPeriod(final Set<TalkValidationViolation> violations, final Conference conference) {
+    private void validateConferenceAndTalkPeriod(final Set<TalkValidationViolation> violations,
+                                                 final Conference conference) {
         final List<Talk> talks = talkResource.findByConference(conference.getId());
         for (final Talk talk : talks) {
             validateTalkDuringConference(violations, talk, conference);
         }
     }
 
-    private void validateTalkDuringConference(Set<TalkValidationViolation> violations, Talk talk, Conference conference) {
+    private void validateTalkDuringConference(Set<TalkValidationViolation> violations, Talk talk,
+                                              Conference conference) {
         if (conference == null) {
             violations.add(TalkValidationViolation.TALK_CONFERENCE_INCOMPATIBILITY);
         } else {
@@ -94,26 +96,26 @@ public class TalkValidation {
     }
 
     private void validateRoomAvailable(final Set<TalkValidationViolation> violations, final Talk talk) {
-        final Long numberOfParallelTalks;
         if (talk != null && talk.getRoom() != null) {
-             numberOfParallelTalks = talkResource.checkRoomAvailableByTalkDuration(talk.getRoom().getId(),
+            final Long numberOfParallelTalks = talkResource.checkRoomAvailableByTalkDuration(talk.getRoom().getId(),
                     talk.getStartTime(), talk.getEndTime());
-        } else {
-            numberOfParallelTalks = 0L;
-        }
-        if (numberOfParallelTalks > 0L) {
-            violations.add(TalkValidationViolation.ROOM_UNAVAILABLE);
+            if (numberOfParallelTalks > 0L) {
+                violations.add(TalkValidationViolation.ROOM_UNAVAILABLE);
+            }
         }
     }
 
-    private void validateSpeakerAvailable(final Set<TalkValidationViolation> violations, final Talk talk) {
-        final List<Speaker> availableSpeakers = talkResource.findAvailableSpeakerByTalkDuration(talk.getStartTime(), talk.getEndTime());
-//
-//        for (final Speaker speaker : speakers) {
-//            if (!availableSpeakers.contains(speaker)){
-//                violations.add(TalkValidationViolation.SPEAKER_UNAVAILABLE);
-//            }
-//        }
+    private void validateSpeakersAvailable(final Set<TalkValidationViolation> violations, final Talk talk) {
+        if (talk != null && talk.getRoom() != null) {
+            Long numberOfParallelTalks = 0L;
+            for (final Speaker speaker : talk.getSpeakers()) {
+                numberOfParallelTalks += talkResource.checkSpeakerAvailableByTalkDuration(speaker,
+                        talk.getStartTime(), talk.getEndTime());
+            }
+            if (numberOfParallelTalks > 0L) {
+                violations.add(TalkValidationViolation.SPEAKER_UNAVAILABLE);
+            }
+        }
     }
 
 }

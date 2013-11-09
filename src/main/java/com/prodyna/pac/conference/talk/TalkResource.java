@@ -94,6 +94,18 @@ public class TalkResource extends RestResource<Talk> {
     }
 
     @GET
+    @Path("_checkSpeakerAvailableByTalkDuration")
+    public Long checkSpeakerAvailableByTalkDuration(@QueryParam("speaker") Speaker speaker,
+                                                    @QueryParam("startTime") long startTime,
+                                                    @QueryParam("endTime") long endTime) {
+        return getEntityManager().createNamedQuery(Talk.CHECK_SPEAKER_AVAILABLE_BY_TALK_DURATION, Long.class)
+                .setParameter("speaker", speaker)
+                .setParameter("startTime", startTime)
+                .setParameter("endTime", endTime)
+                .getSingleResult();
+    }
+
+    @GET
     @Path("_findAvailableSpeakerByTalkDuration")
     public List<Speaker> findAvailableSpeakerByTalkDuration(@QueryParam("startTime") long startTime,
                                                             @QueryParam("endTime") long endTime) {
@@ -111,4 +123,5 @@ public class TalkResource extends RestResource<Talk> {
                 .setParameter("talkId", talkId)
                 .getResultList();
     }
+
 }
